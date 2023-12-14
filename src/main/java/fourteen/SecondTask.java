@@ -158,7 +158,6 @@ public class SecondTask {
             }
         }
 
-
         System.out.println(load);
     }
 
