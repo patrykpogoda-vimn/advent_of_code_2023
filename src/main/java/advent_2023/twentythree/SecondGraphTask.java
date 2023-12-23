@@ -231,7 +231,7 @@ public class SecondGraphTask {
 
             var startNode = merged.stream().filter(it -> it.point().equals(new Point(0, 1))).findFirst().get();
             var visitedNodes = new HashSet<Node>();
-            var length = dfs(startNode, visitedNodes, 0, map.length, map[0].length);
+            var length = travel(startNode, visitedNodes, 0, map.length, map[0].length);
 
             System.out.println(length);
 
@@ -241,7 +241,7 @@ public class SecondGraphTask {
         }
     }
 
-    private static long dfs(Node currentNode, HashSet<Node> visitedNodes, long currentLength, int rows, int cols) {
+    private static long travel(Node currentNode, HashSet<Node> visitedNodes, long currentLength, int rows, int cols) {
 
         if(currentNode.point().equals(new Point(rows - 1, cols - 2))) {
             return currentLength;
@@ -257,7 +257,7 @@ public class SecondGraphTask {
 
         return connectedNodes.keySet()
                 .stream()
-                .map(it -> dfs(it, new HashSet<>(visitedNodes), currentLength + connectedNodes.get(it), rows, cols))
+                .map(it -> travel(it, new HashSet<>(visitedNodes), currentLength + connectedNodes.get(it), rows, cols))
                 .mapToLong(it -> it)
                 .max().getAsLong();
     }
